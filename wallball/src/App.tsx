@@ -5,6 +5,8 @@ function App() {
   const [mouseX, setMouseX] = React.useState(0);
   const [divX, setDivX] = React.useState(0);
   const [divY, setDivY] = React.useState(0);
+  const [top, setTop] = React.useState(-10);
+  const [left, setLeft] = React.useState(0);
   const [isPlaying, setIsPlaying] = React.useState(false);
 
   useEffect(() => {
@@ -14,14 +16,18 @@ function App() {
       if (e.clientX > 1430) {
         setDivX(1430);
       }
+      setLeft(e.clientX  + 10)
     });
-  }, [divX, divY]);
+  }, []);
 
 function startGame() { 
   setIsPlaying(true);
-  const ballElement =  document.querySelector('.ball')
-  
-  ballElement  ? ballElement : '' ;
+   setInterval(ballMove, 1000);
+   console.log(top, left);
+  function ballMove() {
+  setTop(perv => perv - 10)
+  setLeft(perv => perv  + 5)
+}
 }
 
 
@@ -41,7 +47,7 @@ function startGame() {
     >
       <div
         className="ball"
-        style={{ left: divX + 10, top: -10 }}
+        style={{ left:  left, top: top }}
         onClick={() => startGame()}
       />
       <div
